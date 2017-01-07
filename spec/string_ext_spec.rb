@@ -99,7 +99,7 @@ describe "String" do
     end
 
     it 'correctly handles backslashes' do
-      '\'{"\\\\","\\""}\''.from_postgres_array.should == ["\\","\""]
+      '{"\\\\","\\""}'.from_postgres_array.should == ["\\","\""]
     end
 
     it 'correctly handles multi line content' do

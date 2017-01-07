@@ -20,11 +20,9 @@ class String
     if empty?
       []
     else
-      elements = match(/\{(.*)\}/m).captures.first.gsub(/\\"/, '$ESCAPED_DOUBLE_QUOTE$').split(/(?:,)(?=(?:[^"]|"[^"]*")*$)/m)
-      elements = elements.map do |e|
-        res = e.gsub('$ESCAPED_DOUBLE_QUOTE$', '"').gsub("\\\\", "\\").gsub(/^"/, '').gsub(/"$/, '').gsub("''", "'").strip
-        res == 'NULL' ? nil : res
-      end
+      # elements = match(/\{(.*)\}/m).captures.first.gsub(/\\"/, '$ESCAPED_DOUBLE_QUOTE$').split(/(?:,)(?=(?:[^"]|"[^"]*")*$)/m)
+      decoder = PG::TextDecoder::Array.new name: "#{base_type}[]", delimiter: ","
+      elements = decoder.decode(self)
 
       if base_type == :decimal
         elements.collect(&:to_d)

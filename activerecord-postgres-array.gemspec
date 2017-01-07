@@ -13,10 +13,11 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = s.description
 
-  s.add_dependency "activerecord"
+  # The gem is no longer required after Rails 3.2
+  s.add_dependency "activerecord", "<4.0"
+  s.add_dependency "pg", '>= 0.19'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec', '~> 2.12.0'
-  s.add_development_dependency 'pg'
   s.add_development_dependency 'activerecord-postgres-hstore'
   s.add_development_dependency 'combustion', '~> 0.3.1'
 end
